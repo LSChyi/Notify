@@ -1,0 +1,18 @@
+#!/bin/bash
+
+CMD="$*"
+
+if [ -z "$CMD" ]; then
+    echo "usage: $0 [command you want to execute]"
+    exit 0
+fi
+
+$CMD
+RES=$?
+
+STATUS="Success"
+if [ $RES -ne 0 ]; then
+    STATUS="Fail"
+fi
+
+osascript -e "display notification \"$CMD finished\" with title \"$STATUS\" sound name \"Basso.aiff\""
